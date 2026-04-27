@@ -1,9 +1,10 @@
 package com.portfolio.documentqa.config;
 
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.anthropic.AnthropicChatModel;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.anthropic.AnthropicEmbeddingModel;
+import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+import dev.langchain4j.model.googleai.GoogleAiGeminiEmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.weaviate.WeaviateEmbeddingStore;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,11 +14,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WeaviateConfig {
 
-    @Value("${app.anthropic.api-key}")
-    private String anthropicApiKey;
+    @Value("${app.gemini.api-key}")
+    private String geminiApiKey;
 
-    @Value("${app.anthropic.model}")
-    private String anthropicModel;
+    @Value("${app.gemini.model}")
+    private String geminiModel;
+
+    @Value("${app.gemini.embedding-model}")
+    private String embeddingModel;
 
     @Value("${app.weaviate.host}")
     private String weaviateHost;
@@ -29,18 +33,18 @@ public class WeaviateConfig {
     private String collection;
 
     @Bean
-    public AnthropicChatModel chatModel() {
-        return AnthropicChatModel.builder()
-                .apiKey(anthropicApiKey)
-                .modelName(anthropicModel)
-                .maxTokens(1024)
+    public ChatLanguageModel chatModel() {
+        return GoogleAiGeminiChatModel.builder()
+                .apiKey(geminiApiKey)
+                .modelName(geminiModel)
                 .build();
     }
 
     @Bean
     public EmbeddingModel embeddingModel() {
-        return AnthropicEmbeddingModel.builder()
-                .apiKey(anthropicApiKey)
+        return GoogleAiGeminiEmbeddingModel.builder()
+                .apiKey(geminiApiKey)
+                .modelName(embeddingModel)
                 .build();
     }
 

@@ -2,7 +2,7 @@ package com.portfolio.documentqa.service;
 
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.anthropic.AnthropicChatModel;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.input.Prompt;
 import dev.langchain4j.model.input.PromptTemplate;
@@ -32,13 +32,13 @@ public class QaService {
 
     private final EmbeddingModel embeddingModel;
     private final EmbeddingStore<TextSegment> embeddingStore;
-    private final AnthropicChatModel chatModel;
+    private final ChatLanguageModel chatModel;
     private final int maxResults;
 
     public QaService(
             EmbeddingModel embeddingModel,
             EmbeddingStore<TextSegment> embeddingStore,
-            AnthropicChatModel chatModel,
+            ChatLanguageModel chatModel,
             @Value("${app.rag.max-results}") int maxResults) {
         this.embeddingModel = embeddingModel;
         this.embeddingStore = embeddingStore;
