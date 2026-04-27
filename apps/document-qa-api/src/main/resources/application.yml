@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: document-qa-api
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+server:
+  port: 8080
+
+app:
+  anthropic:
+    api-key: ${ANTHROPIC_API_KEY}
+    model: claude-sonnet-4-6
+  weaviate:
+    host: ${WEAVIATE_HOST}
+    api-key: ${WEAVIATE_API_KEY}
+    collection: Documents
+  rag:
+    chunk-size: 500
+    chunk-overlap: 50
+    max-results: 5
